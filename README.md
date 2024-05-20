@@ -55,14 +55,14 @@ Command | Return
 IC: | IC:96
 
 The returned word contains status bits:
-IC:|7|6|5|4|3|2|1|0|
----|-|-|-|-|-|-|-|-|
-96|1|0|0|1|0|1|1|0|
-|||||||||Out of Beans|
-||||||||Boiler heated||
-|||||||Water Tank empty|||
-|||||Waste Tray full||||
-||Press rotary to rinse||||||
+IC:|7|6|5|4|3|2|1|0|Meaning|
+---|-|-|-|-|-|-|-|-|-|
+96|1|0|0|1|0|1|1|0||
+  | | | | | | | |x|Out of Beans|
+  | | | | | | |x| |Boiler heated|
+  | | | | |x| | | |Water Tank empty|
+  | | | |x| | | | |Waste Tray full|
+  |x| | | | | | | |Press rotary to rinse|
 
 #### To-Do:
 - Determine how to initiate a Force Rinse action on this model
