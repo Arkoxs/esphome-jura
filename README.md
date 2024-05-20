@@ -58,10 +58,10 @@ The returned word contains status bits:
 IC:|7|6|5|4|3|2|1|0|
 ---|-|-|-|-|-|-|-|-|
 96|1|0|0|1|0|1|1|0|
-|||||||Out of Beans|
-||||||Boiler heated||
-|||||Water Tank empty|||
-||||Waste Tray full||||
+|||||||||Out of Beans|
+||||||||Boiler heated||
+|||||||Water Tank empty|||
+|||||Waste Tray full||||
 ||Press rotary to rinse||||||
 
 #### To-Do:
