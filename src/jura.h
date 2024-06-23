@@ -7,13 +7,14 @@ class JuraCoffee : public PollingComponent, public UARTDevice {
  Sensor *xsensor3 {nullptr};
  Sensor *xsensor4 {nullptr};
  Sensor *xsensor5 {nullptr};
- TextSensor *xsensor6 {nullptr};
+ Sensor *xsensor6 {nullptr};
  TextSensor *xsensor7 {nullptr};
+ TextSensor *xsensor8 {nullptr};
 
  public:
-  JuraCoffee(UARTComponent *parent, Sensor *sensor0, Sensor *sensor1, Sensor *sensor2, Sensor *sensor3, Sensor *sensor4, Sensor *sensor5, TextSensor *sensor6, TextSensor *sensor7) : UARTDevice(parent) , xsensor0(sensor0) , xsensor1(sensor1) , xsensor2(sensor2) , xsensor3(sensor3) , xsensor4(sensor4) , xsensor5(sensor5) , xsensor6(sensor6), xsensor7(sensor7) {} 
+  JuraCoffee(UARTComponent *parent, Sensor *sensor0, Sensor *sensor1, Sensor *sensor2, Sensor *sensor3, Sensor *sensor4, Sensor *sensor5, Sensor *sensor6, TextSensor *sensor7, TextSensor *sensor8) : UARTDevice(parent) , xsensor0(sensor0) , xsensor1(sensor1) , xsensor2(sensor2) , xsensor3(sensor3) , xsensor4(sensor4) , xsensor5(sensor5) , xsensor6(sensor6), xsensor7(sensor7), xsensor8(sensor8) {} 
 
-  long num_single_espresso, num_double_espresso, num_coffee, num_double_coffee, num_clean, num_waste;
+  long num_single_espresso, num_double_espresso, num_coffee, num_double_coffee, num_clean, num_waste, num_decalcify;
   std::string tray_status, tank_status; 
 
   // Jura communication function taken in entirety from cmd2jura.ino, found at https://github.com/hn/jura-coffee-machine
@@ -91,6 +92,12 @@ class JuraCoffee : public PollingComponent, public UARTDevice {
       num_waste = 16 - strtol(substring.c_str(),NULL,16);
       //ESP_LOGD("main", "Count until wastebin is full: %s, 13 - %s, %d", result.c_str(), substring.c_str(), num_waste);
 
+      // until machine needs decalcify
+      result = cmd2jura("RE:36");
+      substring = result.substring(3,7);
+      num_decalcify = 504 - strtol(substring.c_str(),NULL,16);
+      //ESP_LOGD("main", "Count until decalcify: %s, 504 - %s, %d", result.c_str(), substring.c_str(), num_single_espresso);
+
 
       // Read the servingsline in EEPROM
       result = cmd2jura("RT:E000");
@@ -149,8 +156,9 @@ class JuraCoffee : public PollingComponent, public UARTDevice {
       if (xsensor3 != nullptr)   xsensor3->publish_state(num_double_coffee);
       if (xsensor4 != nullptr)   xsensor4->publish_state(num_waste);
       if (xsensor5 != nullptr)   xsensor5->publish_state(num_clean);
-      if (xsensor6 != nullptr)   xsensor6->publish_state(tray_status);
-      if (xsensor7 != nullptr)   xsensor7->publish_state(tank_status);
+      if (xsensor6 != nullptr)   xsensor6->publish_state(num_decalcify);
+      if (xsensor7 != nullptr)   xsensor7->publish_state(tray_status);
+      if (xsensor8 != nullptr)   xsensor8->publish_state(tank_status);
 
       // Debug code read EEPROM Lines
       /*

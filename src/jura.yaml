@@ -115,6 +115,12 @@ sensor:
     accuracy_decimals: 0
     lambda: "return {};"
 
+  - platform: template
+    id: num_decalcify
+    name: "Until Decalcify"
+    accuracy_decimals: 0
+    lambda: "return {};"
+
 text_sensor:
   - platform: version
     name: "${friendly_name} ESPHome version"
@@ -136,6 +142,6 @@ binary_sensor:
 # Custom component to poll coffee machine counters & status
 custom_component:
 - lambda: |-
-    auto my_jura = new JuraCoffee(id(uart_bus),id(num_single_espresso),id(num_double_espresso),id(num_coffee),id(num_double_coffee),id(num_waste),id(num_clean),id(tray_status),id(tank_status));
+    auto my_jura = new JuraCoffee(id(uart_bus),id(num_single_espresso),id(num_double_espresso),id(num_coffee),id(num_double_coffee),id(num_waste),id(num_clean),id(num_decalcify),id(tray_status),id(tank_status));
     App.register_component(my_jura);
     return {my_jura};
