@@ -13,7 +13,6 @@ substitutions:
 
 esp8266:
   board: d1_mini
-  restore_from_flash: True
 
 <<: !include common/common.yaml
 <<: !include common/homeassistant.yaml
@@ -64,8 +63,7 @@ switch:
       - delay: 8ms
       - uart.write: [0xFB, 0xFB, 0xDB, 0xDB]  ## '\n'
     optimistic: true
-    assumed_state: true
-
+    #assumed_state: true
 
 uart:
   tx_pin: D6
@@ -106,6 +104,12 @@ sensor:
     lambda: "return {};"
 
   - platform: template
+    id: num_waste
+    name: "Until Wastebin is full"
+    accuracy_decimals: 0
+    lambda: "return {};"
+
+  - platform: template
     id: num_clean
     name: "Until Cleaning"
     accuracy_decimals: 0
@@ -125,21 +129,6 @@ text_sensor:
     name: "Water Tank Status"
     lambda: "return {};"
 
-  - platform: template
-    id: heat_status
-    name: "Boiler Status"
-    lambda: "return {};"
-
-  - platform: template
-    id: beans_status
-    name: "Coffeebeans Status"
-    lambda: "return {};"
-
-  - platform: template
-    id: rinse_status
-    name: "Rinse Status"
-    lambda: "return {};"
-
 binary_sensor:
   - platform: status
     name: "${friendly_name} Status"
@@ -147,6 +136,6 @@ binary_sensor:
 # Custom component to poll coffee machine counters & status
 custom_component:
 - lambda: |-
-    auto my_jura = new JuraCoffee(id(uart_bus),id(num_single_espresso),id(num_double_espresso),id(num_coffee),id(num_double_coffee),id(num_clean),id(tray_status),id(tank_status),id(heat_status),id(beans_status),id(rinse_status));
+    auto my_jura = new JuraCoffee(id(uart_bus),id(num_single_espresso),id(num_double_espresso),id(num_coffee),id(num_double_coffee),id(num_waste),id(num_clean),id(tray_status),id(tank_status));
     App.register_component(my_jura);
     return {my_jura};

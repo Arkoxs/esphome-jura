@@ -46,7 +46,7 @@ FA:09 | Make 1 Coffee
 FA:0A | Make 2 Coffees
 FA:0C | Enters the menu system - displays RINSE as the first option
 FA:0D | Cycles through menu options [dial counter-clockwise]
-FA:OE | Cycles through menu options clockwise [dial-clockwise]
+FA:OE | Cycles through menu options [dial clockwise]
 
 ### Status
 Sending the command IC: returns a status word
@@ -58,11 +58,22 @@ The returned word contains status bits:
 IC:|7|6|5|4|3|2|1|0|Meaning|
 --|-|-|-|-|-|-|-|-|-|
 96|1|0|0|1|0|1|1|0| |
-  | | | | | | | | |x|Out of Beans|
-  | | | | | | | |x| |Boiler heated|
+  | | | | | | | | |?|Out of Beans|
+  | | | | | | | |?| |Boiler heated|
   | | | | | |x| | | |Water Tank empty|
   | | | | |x| | | | |Waste Tray full|
-  | |x| | | | | | | |Press rotary to rinse|
+  | | | | | | | | | |Press rotary to rinse|
+
+### eeprom
+These values have been identified in EEPROM
+Register | Value
+--- | ---
+0E | Wastebin Counter
+0F | Cleaning counter
+E0 | Espresso counter
+E1 | Double Espresso counter
+E2 | Coffee counter
+E3 | Double coffe counter
 
 #### To-Do:
 - Determine how to initiate a Force Rinse action on this model
