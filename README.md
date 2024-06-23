@@ -1,14 +1,15 @@
-## ESPhome - Jura Impressa J6 
+## ESPhome - Jura Impressa C5 
 This is an ESPhome custom component to communicate with a Jura Impressa C5 coffee machine.  It may also work with other serially-controlled Jura models with minimal adjustment.
 
 It allows monitoring and control via HomeAssistant:
+Only control currently possible is power on/off.
 
 <img src="images/HomeAssistant_interface.png" alt="drawing" width=55%/>
 
 ***
 
-Hardware is a Wemos D1 Mini connected to the 7-pin Jura service port via a 3.3V<->5V logic level converter.\
-The D1 mini is powered from the Jura and controls the on/off power of the Jura by using a relay.
+Hardware is a Wemos D1 Mini connected to the 7-pin Jura service port via a 3.3V<->5V logic level converter.
+The D1 mini is powered from the Jura and is located above the main PCB. It can controle on/off power of the Jura by using a relay that is parallel to the Jura powerbutton.
 
 <img src="images/seven-pin-interface.jpg" alt="Jura 7-pin interface">
 
@@ -22,9 +23,7 @@ The D1 Mini and level converter are placed in an enclosure screwed to the back o
 
 <img src="images/d1-mini-mounting.jpg" alt="D1 mini mounting on back of J6" width=55%/>
 
-Internal connections to the service connector wires are done with "T" tap/splices, leaving the connector itself alone.
-
-<img src="images/t-splice.png" alt="T-splice" width=25%/>
+Internal connections to the power on relay is done by soldering.
 
 ***
 
